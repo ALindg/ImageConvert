@@ -12,7 +12,7 @@ class Pixel:
             self.green = pixeldata[1]
             self.blue = pixeldata[0]
             self.length = 3 if len(pixeldata) != 4 else 4
-            self.data = [self.red, self.green, self.blue] if len(pixeldata) != 4 else \
+            self.data = [self.red, self.green, self.blue] if self.length != 4 else \
                 [self.red, self.green, self.blue, self.alpha]
             return
         if(len(pixeldata) == 4):
