@@ -26,8 +26,6 @@ compressionMethod = {0: "RGB",
 def pixelToTuple(hex):
     return struct.unpack("ccc", hex)
 
-    #raise IOError("Invalid Hex Length Provided")
-
 class bmpFile:
     def __init__(self, file=-1):
         try:
@@ -47,6 +45,11 @@ class bmpFile:
         except IOError:
             raise IOError("Could not find file! " + file + " is not a valid file in this directory.")
 
+            
+        # Gather the relevant data we need. Insofar, there has been no need for extra information
+        # Besides what is located within the header and information data. 
+        # Should there be a need for additional info, changes should be made to this class
+        # Which reflects that need for any additional info from the file being required.
         self.items = {}
         self.items['file'] = file
         self.items['fileHeader'] = self.file[0:14]
@@ -72,7 +75,7 @@ class bmpFile:
         self.validate()
         # If it validated, we can get a raster of it
         self.items['raster'] = self.getRaster()
-
+    
     def validate(self):
         if self.fileHeader[:2] != b"BM":
             raise IOError("File header is not BM, invalid file.")
@@ -129,8 +132,13 @@ class bmpFile:
         f.write(file)
         f.close()
 
-x = bmpFile()
-y = bmpFile("testimg.bmp")
+# Testing / Debug purposes.
+# These should respectively each print as an empty file and testimg.bmp
+# testimg.bmp is a bmp file with exactly four pixels. 
+# One red pixel, one green pixel, then on the second row: One blue pixel, one white pixel.
+# It is 24 bits in bit depth and only has RGB values. 
+#x = bmpFile()
+#y = bmpFile("testimg.bmp")
 
-print(x)
-print(y)
+#print(x)
+#print(y)
